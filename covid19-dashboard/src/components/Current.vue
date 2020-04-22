@@ -17,9 +17,9 @@ export default {
     },
     created() {
         this.$http.get('https://covid2019-api.herokuapp.com/v2/current')
-            .then(function(data){
-                this.current = data.data;
-            })
+                    .then(function(data){
+                        this.current = data.data;
+                    })
     }
 }
 </script>

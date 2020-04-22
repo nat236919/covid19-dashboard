@@ -11,8 +11,9 @@
         </div>
         <!-- Data -->
         <div class="container">
-            <show-total></show-total>
-            <show-current></show-current>
+            <show-total />
+            <show-timeseries />
+            <show-current />
         </div>
     </div>
 </template>
@@ -20,12 +21,14 @@
 <script>
 import showTotal from './Total.vue'
 import showCurrent from './Current.vue'
+import showTimeSeries from './TimeSeries.vue'
 
 export default {
     name: "Dashboard",
     components: {
         'show-total': showTotal,
-        'show-current': showCurrent
+        'show-current': showCurrent,
+        'show-timeseries': showTimeSeries
     }
 }
 </script>
