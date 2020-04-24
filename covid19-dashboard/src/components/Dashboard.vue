@@ -14,6 +14,7 @@
             <show-total />
             <show-timeseries />
             <show-current />
+            <show-randomchart />
         </div>
     </div>
 </template>
@@ -22,13 +23,15 @@
 import showTotal from './Total.vue'
 import showCurrent from './Current.vue'
 import showTimeSeries from './TimeSeries.vue'
+import showRandomChart from './RandomChart.vue'
 
 export default {
     name: "Dashboard",
     components: {
         'show-total': showTotal,
         'show-current': showCurrent,
-        'show-timeseries': showTimeSeries
+        'show-timeseries': showTimeSeries,
+        'show-randomchart': showRandomChart
     }
 }
 </script>
