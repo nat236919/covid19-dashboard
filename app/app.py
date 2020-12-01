@@ -11,10 +11,12 @@ import dash_html_components as html
 import plotly.express as px
 import pandas as pd
 
+from utils.helper import DataFrameHelper
 from models.covid19_model import Covid19Model
 
 
 # Init app and modules
+dataframe_helper = DataFrameHelper()
 covid19_model = Covid19Model()
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
@@ -22,15 +24,22 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # Prepare data and Create graph
 df = covid19_model.get_current()
+df = dataframe_helper.clean_df_current(df)
 fig = px.scatter(df, x='deaths', y='active',
-                 size='confirmed', color="location", hover_name='location',
-                 log_x=True, size_max=60)
+                 size='confirmed', color="continent", hover_name='location',
+                 log_x=True, size_max=80)
 
 
 # Create layout
 app.layout = html.Div([
+    html.H1(children='COVID-19 DASHBOARD'),
+
+    html.Div(children='''
+        Dashbord for exploring covid-19 cases around the globe powered by DASH framework.
+    '''),
+
     dcc.Graph(
-        id='life-exp-vs-gdp',
+        id='Global Data',
         figure=fig
     )
 ])
