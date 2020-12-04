@@ -25,22 +25,25 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 # Prepare data and Create graph
 df = covid19_model.get_current()
 df = dataframe_helper.clean_df_current(df)
-fig = px.scatter(df, x='deaths', y='active',
+fig_scatter = px.scatter(df, x='deaths', y='active',
                  size='confirmed', color="continent", hover_name='location',
                  log_x=True, size_max=80)
+fig_bar = px.bar(df, x='continent', y='confirmed', color='location')
 
 
 # Create layout
 app.layout = html.Div([
     html.H1(children='COVID-19 DASHBOARD'),
-
     html.Div(children='''
         Dashbord for exploring covid-19 cases around the globe powered by DASH framework.
     '''),
-
     dcc.Graph(
         id='Global Data',
-        figure=fig
+        figure=fig_scatter
+    ),
+    dcc.Graph(
+        id='Global Data 2',
+        figure=fig_bar
     )
 ])
 
