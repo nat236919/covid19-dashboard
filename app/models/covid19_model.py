@@ -18,11 +18,13 @@ class Covid19Model:
         self.api_endpoint = 'https://covid19.nuttaphat.com/v2/'
     
     def get_current(self) -> pd.DataFrame:
-        df = self._get_data(self.api_endpoint+'current')
+        data = self._get_data(self.api_endpoint+'current')
+        df = pd.DataFrame(data)
         return df
     
     def get_total(self) -> pd.DataFrame:
-        df = self._get_data(self.api_endpoint+'total')
+        data = self._get_data(self.api_endpoint+'total')
+        df = pd.DataFrame(data, index=[0]) # escape scalar value error
         return df
     
     def _get_data(self, url: str) -> Dict[str, Any]:
@@ -30,10 +32,4 @@ class Covid19Model:
             return []
         res = requests.get(url).json()
         data = res.get('data')
-        df = self._create_df(data)
-        return df
-    
-    def _create_df(self, data: Dict[str, Any]) -> pd.DataFrame:
-        if not data:
-            data = {}
-        return pd.DataFrame(data)
+        return data
