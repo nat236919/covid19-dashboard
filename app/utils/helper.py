@@ -18,6 +18,23 @@ class DataFrameHelper:
         self.lookup_df = pd.read_csv(self.lookup_table_url)[['iso2', 'Country_Region']]
         self.lookup_data = {v['Country_Region']: v['iso2'] for v in self.lookup_df.to_dict('records')}
     
+    def clean_df_total(self, df: pd.DataFrame) -> pd.DataFrame:
+        """ Run all pre-processing procedures for COVID19 total data
+            return:
+                    category	total
+                0	confirmed	66540034
+                1	deaths	    1528868
+                2	recovered	42789879
+                3	active	    22221289
+        """
+        if not isinstance(df, pd.DataFrame):
+            return pd.DataFrame({})
+
+        df = df.T.reset_index()
+        df.columns = ['category', 'total']
+
+        return df
+    
     def clean_df_current(self, df: pd.DataFrame) -> pd.DataFrame:
         """ Run all pre-processing procedures for COVID19 current data """
         if not isinstance(df, pd.DataFrame):
