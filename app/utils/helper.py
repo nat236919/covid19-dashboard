@@ -5,10 +5,11 @@ AUTHOR: Nuttaphat Arunoprayoch
 DATE: 01-DEC-2020
 """
 # Import libs
-import requests
-
+import dash_html_components as html
 import pandas as pd
 import pycountry_convert as pc
+
+import requests
 
 
 # Helper module
@@ -58,3 +59,16 @@ class DataFrameHelper:
             continent = 'Other'
 
         return continent
+
+class DashHelper:
+    def generate_table(self, dataframe: pd.DataFrame, max_rows: int = 10) -> html:
+        return html.Table([
+            html.Thead(
+                html.Tr([html.Th(col) for col in dataframe.columns])
+            ),
+            html.Tbody([
+                html.Tr([
+                    html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
+                ]) for i in range(min(len(dataframe), max_rows))
+            ])
+        ])

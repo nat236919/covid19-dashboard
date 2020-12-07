@@ -8,15 +8,16 @@ DATE: 01-DEC-2020
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-import plotly.express as px
 import pandas as pd
+import plotly.express as px
+from dash.dependencies import Input, Output
 
-from utils.helper import DataFrameHelper
 from models.covid19_model import Covid19Model
-
+from utils.helper import DataFrameHelper, DashHelper
 
 # Init app and modules
 dataframe_helper = DataFrameHelper()
+dash_helper = DashHelper()
 covid19_model = Covid19Model()
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
@@ -40,14 +41,24 @@ fig_bar = px.bar(df_current, x='continent', y='confirmed', color='location')
 
 # Create layout
 app.layout = html.Div([
-    html.H1(children='COVID-19 DASHBOARD'),
-    html.Div(children='''
-        Dashbord for exploring covid-19 cases around the globe powered by DASH framework.
-    '''),
-    dcc.Graph(
-        id='Total Data',
-        figure=fig_pie
-    ),
+    # Head
+    html.Div(children=[
+        html.H1('COVID-19 DASHBOARD'),
+        html.P('Dashbord for exploring covid-19 cases around the globe powered by DASH framework.'),
+        html.Button('API doc', id='api_btn'),
+        html.Button('GitHub', id='github_btn'),
+    ], style={'textAlign': 'center'}),
+
+    # Tabs
+    html.Div([
+        dcc.Tabs(id="tabs", value='tab-table', children=[
+            dcc.Tab(label='Total Data - Table', value='tab-table'),
+            dcc.Tab(label='Total Data - Pie Chart', value='tab-pie')
+        ]),
+        html.Div(id='tabs-content')
+    ], style={'margin': 'auto', 'width': '60%', 'padding': '10px'}),
+
+    # Other Graphs
     dcc.Graph(
         id='Global Data',
         figure=fig_scatter
@@ -57,6 +68,22 @@ app.layout = html.Div([
         figure=fig_bar
     )
 ])
+
+
+# Callbacks
+@app.callback(Output('tabs-content', 'children'), Input('tabs', 'value'))
+def render_content(tab):
+    if tab == 'tab-table':
+        return html.Div([
+            dash_helper.generate_table(df_total)
+        ])
+    elif tab == 'tab-pie':
+        return html.Div([
+            dcc.Graph(
+                id='Total Data',
+                figure=fig_pie
+            )
+        ])
 
 
 if __name__ == '__main__':
