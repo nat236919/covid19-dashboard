@@ -8,12 +8,13 @@ DATE: 01-DEC-2020
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import numpy as np
 import pandas as pd
 import plotly.express as px
 from dash.dependencies import Input, Output
 
 from models.covid19_model import Covid19Model
-from utils.helper import DataFrameHelper, DashHelper
+from utils.helper import DashHelper, DataFrameHelper
 
 # Init app and modules
 dataframe_helper = DataFrameHelper()
@@ -33,10 +34,12 @@ fig_pie = px.pie(df_total, values='total', names='category')
 # Current data
 df_current = covid19_model.get_current()
 df_current = dataframe_helper.clean_df_current(df_current)
+fig_choropleth = px.choropleth(df_current, locations='country_code_iso3',  color='confirmed', hover_name='location', title='World-Wide Infection')
+fig_treemap = px.treemap(df_current, path=[px.Constant('world'), 'continent', 'location'], values='confirmed', color='active', hover_data=['country_code_iso3'],
+                 color_continuous_scale='RdBu', color_continuous_midpoint=np.average(df_current['active'], weights=df_current['confirmed']))
 fig_scatter = px.scatter(df_current, x='deaths', y='active',
                  size='confirmed', color="continent", hover_name='location',
                  log_x=True, size_max=80)
-fig_bar = px.bar(df_current, x='continent', y='confirmed', color='location')
 
 
 # Create layout
@@ -51,21 +54,22 @@ app.layout = html.Div([
 
     # Tabs
     html.Div([
-        dcc.Tabs(id="tabs", value='tab-table', children=[
-            dcc.Tab(label='Total Data - Table', value='tab-table'),
-            dcc.Tab(label='Total Data - Pie Chart', value='tab-pie')
+        dcc.Tabs(id="tabs", value='tab-choropleth', children=[
+            dcc.Tab(label='World-Wide Infection',   value='tab-choropleth'),
+            dcc.Tab(label='Total Data - Pie Chart', value='tab-pie'),
+            dcc.Tab(label='Total Data - Table',     value='tab-table'),
         ]),
         html.Div(id='tabs-content')
     ], style={'margin': 'auto', 'width': '60%', 'padding': '10px'}),
 
     # Other Graphs
     dcc.Graph(
-        id='Global Data',
-        figure=fig_scatter
+        id='treemap_graph',
+        figure=fig_treemap
     ),
     dcc.Graph(
-        id='Global Data 2',
-        figure=fig_bar
+        id='bubble_graph',
+        figure=fig_scatter
     )
 ])
 
@@ -73,16 +77,23 @@ app.layout = html.Div([
 # Callbacks
 @app.callback(Output('tabs-content', 'children'), Input('tabs', 'value'))
 def render_content(tab):
-    if tab == 'tab-table':
+    if tab == 'tab-choropleth':
         return html.Div([
-            dash_helper.generate_table(df_total)
+            dcc.Graph(
+                id='choropleth_graph',
+                figure=fig_choropleth
+            )
         ])
     elif tab == 'tab-pie':
         return html.Div([
             dcc.Graph(
-                id='Total Data',
+                id='pie_graph',
                 figure=fig_pie
             )
+        ])
+    elif tab == 'tab-table':
+        return html.Div([
+            dash_helper.generate_table(df_total)
         ])
 
 
