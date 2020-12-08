@@ -41,7 +41,7 @@ df_current = covid19_model.get_current()
 df_current = dataframe_helper.clean_df_current(df_current)
 
 fig_choropleth = px.choropleth(df_current, locations='country_code_iso3', color='confirmed',
-                hover_name='location', title='World-Wide Infection')
+                hover_name='location')
 
 fig_treemap = px.treemap(df_current, path=[px.Constant('world'), 'continent', 'location'], values='confirmed',
                 color='active', hover_data=['country_code_iso3'], color_continuous_scale='RdBu',
@@ -58,8 +58,9 @@ app.layout = html.Div([
     html.Div(children=[
         html.H1('COVID-19 DASHBOARD'),
         html.P('Dashbord for exploring covid-19 cases around the globe powered by DASH framework.'),
-        html.Button('API doc', id='api_btn'),
-        html.Button('GitHub', id='github_btn'),
+        dcc.Link(html.Button('API doc'), href='https://covid19.nuttaphat.com/'),
+        dcc.Link(html.Button('GitHub'), href='https://github.com/nat236919/covid19-dashboard'),
+        html.Div(id='container-button')
     ], style={'textAlign': 'center'}),
 
     # Tabs
@@ -81,7 +82,8 @@ app.layout = html.Div([
 ])
 
 
-# Callbacks
+## Callbacks
+# Tabs
 @app.callback(Output('tabs-content', 'children'), Input('tabs', 'value'))
 def render_content(tab):
     if tab == 'tab-choropleth':
@@ -115,4 +117,4 @@ if __name__ == '__main__':
     """ Run this app with `python app.py` and
         Visit http://127.0.0.1:8050/ in your web browser.
     """
-    app.run_server(debug=True)
+    app.run_server(debug=False)
