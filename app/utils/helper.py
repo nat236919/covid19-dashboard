@@ -71,4 +71,4 @@ class DashHelper:
                     html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
                 ]) for i in range(min(len(dataframe), max_rows))
             ])
-        ])
+        ], style={'margin-left': 'auto', 'margin-right': 'auto'})
