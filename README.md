@@ -14,15 +14,6 @@
 
 **COVID-19 DASHBOARD** provides visualization from the COVID-19 data derived from [nat236919/covid19-api](https://github.com/nat236919/covid19-api). The core visualization framework relies heavily on [plotly/dash](https://github.com/plotly/dash) which offers swift and beautiful presentations.
 
-## Visualization (Examples)
-
-|  Chart Name           |     Graphic                                   |
-| --------------------  | --------------------------------------------- |
-| Chroleth              | <img src="https://i.ibb.co/FxRVzkr/g-1.jpg">  |
-| Bubble                | <img src="https://i.ibb.co/Lkpb90q/g-2.jpg">  |
-| Pie                   | <img src="https://i.ibb.co/r4SqpLv/g-3.jpg">  |
-| Treemap               | <img src="https://i.ibb.co/WkCv1L9/g-4.jpg">  |
-
 ## Installation
 
 * Install requirements
@@ -47,3 +38,12 @@ Dash is running on http://127.0.0.1:8050/
  * Debug mode: off
  * Running on http://127.0.0.1:8050/ (Press CTRL+C to quit)
 ```
+
+## Visualization (Examples)
+
+|  Chart Name           |     Graphic                                   |
+| --------------------  | --------------------------------------------- |
+| Chroleth              | <img src="https://i.ibb.co/FxRVzkr/g-1.jpg">  |
+| Bubble                | <img src="https://i.ibb.co/Lkpb90q/g-2.jpg">  |
+| Pie                   | <img src="https://i.ibb.co/r4SqpLv/g-3.jpg">  |
+| Treemap               | <img src="https://i.ibb.co/WkCv1L9/g-4.jpg">  |
