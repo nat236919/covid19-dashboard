@@ -1,4 +1,4 @@
-FROM tiangolo/uwsgi-nginx:python3.8
+FROM tiangolo/uwsgi-nginx-flask:python3.8
 LABEL maintainer="Nuttaphat <nat236919@gmail.com>"
 
 # setup uWSGI

@@ -8,6 +8,7 @@ DATE: 01-DEC-2020
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import flask
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -15,7 +16,6 @@ from dash.dependencies import Input, Output
 
 from models.covid19_model import Covid19Model
 from utils.helper import DashHelper, DataFrameHelper
-
 
 # Init modules
 dataframe_helper = DataFrameHelper()
@@ -25,7 +25,8 @@ covid19_model = Covid19Model()
 
 # Init app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = flask.Flask(__name__)
+app = dash.Dash(__name__, server=server, external_stylesheets=external_stylesheets)
 app.title = 'COVID-19 DASHBOARD'
 
 
@@ -116,6 +117,6 @@ def render_content(tab):
 
 if __name__ == '__main__':
     """ Run this app with `python app.py` and
-        Visit http://127.0.0.1:8080/ in your web browser.
+        Visit http://127.0.0.1:80/ in your web browser.
     """
     app.run_server(host='0.0.0.0', port=80, debug=False)
