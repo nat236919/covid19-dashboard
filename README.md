@@ -38,7 +38,7 @@ services:
     volumes:
       - ./app:/app
     ports:
-      - "80:80"
+      - "8080:8080"
     command: python app.py
 ```
 
@@ -73,14 +73,14 @@ python app.py
 * Result
 
 ```console
-Dash is running on http://127.0.0.1/
+Dash is running on http://127.0.0.1:8080/
 
  * Serving Flask app "app" (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
    Use a production WSGI server instead.
  * Debug mode: off
- * Running on http://127.0.0.1/ (Press CTRL+C to quit)
+ * Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)
 ```
 
 ## Visualization (Examples)
