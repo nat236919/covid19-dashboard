@@ -9,6 +9,7 @@ import dash_html_components as html
 import pandas as pd
 import pycountry_convert as pc
 
+import io
 import requests
 
 
@@ -16,7 +17,8 @@ import requests
 class DataFrameHelper:
     def __init__(self):
         self.lookup_table_url = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv'
-        self.lookup_df = pd.read_csv(self.lookup_table_url)[['iso2', 'iso3', 'Country_Region']]
+        self.lookup_table_content = requests.get(self.lookup_table_url).content # escape CERTIFICATE_VERIFY_FAILED
+        self.lookup_df = pd.read_csv(io.StringIO(self.lookup_table_content.decode('utf-8')))[['iso2', 'iso3', 'Country_Region']]
         self.lookup_data_iso2 = {v['Country_Region']: v['iso2'] for v in self.lookup_df.to_dict('records')}
         self.lookup_data_iso3 = {v['Country_Region']: v['iso3'] for v in self.lookup_df.to_dict('records')}
     

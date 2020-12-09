@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    container_name: "covid19_dashboard_web_container"
+    volumes:
+      - ./app:/app
+    ports:
+      - "80:8080"
+    command: python app.py

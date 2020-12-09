@@ -26,6 +26,7 @@ covid19_model = Covid19Model()
 # Init app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app.title = 'COVID-19 DASHBOARD'
 
 
 # Prepare data and Create graph
@@ -115,6 +116,6 @@ def render_content(tab):
 
 if __name__ == '__main__':
     """ Run this app with `python app.py` and
-        Visit http://127.0.0.1:8050/ in your web browser.
+        Visit http://127.0.0.1:8080/ in your web browser.
     """
-    app.run_server(debug=False)
+    app.run_server(host='0.0.0.0', port=8080, debug=False)

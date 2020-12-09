@@ -30,6 +30,6 @@ class Covid19Model:
     def _get_data(self, url: str) -> Dict[str, Any]:
         if not url:
             return []
-        res = requests.get(url).json()
+        res = requests.get(url, verify=False).json()
         data = res.get('data')
         return data
