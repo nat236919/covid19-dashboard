@@ -14,6 +14,48 @@
 
 **COVID-19 DASHBOARD** provides visualization from the COVID-19 data derived from [nat236919/covid19-api](https://github.com/nat236919/covid19-api). The core visualization framework relies heavily on [plotly/dash](https://github.com/plotly/dash) which offers swift and beautiful presentations.
 
+## Installation (Docker-compose)
+
+* Run the following command in your command line to run the server
+
+```console
+docker-compose up
+```
+
+* Or run the server in the background
+
+```console
+docker-compose up -d
+```
+
+* The port can be changed at <b>docker-compose.override.yml</b>
+
+```yml
+version: '3'
+services:
+  web:
+    container_name: "covid19_dashboard_web_container"
+    volumes:
+      - ./app:/app
+    ports:
+      - "80:8080"
+    command: python app.py
+```
+
+## How to install (from Dockerhub)
+
+* Download the latest image
+
+```console
+docker pull nat236919/covid19-dashboard:latest
+```
+
+* Create a container and run
+
+```console
+docker run nat236919/covid19-dashboard
+```
+
 ## Installation
 
 * Install requirements
