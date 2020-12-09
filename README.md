@@ -91,3 +91,7 @@ Dash is running on http://127.0.0.1:8080/
 | Bubble                | <img src="https://i.ibb.co/Lkpb90q/g-2.jpg">  |
 | Pie                   | <img src="https://i.ibb.co/r4SqpLv/g-3.jpg">  |
 | Treemap               | <img src="https://i.ibb.co/WkCv1L9/g-4.jpg">  |
+
+## Sponsor this project
+
+<a href="https://www.buymeacoffee.com/HdYFLQU" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
