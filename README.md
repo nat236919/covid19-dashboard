@@ -42,7 +42,7 @@ services:
     command: python app.py
 ```
 
-## How to install (from Dockerhub)
+## Installation (from Dockerhub)
 
 * Download the latest image
 
